@@ -761,6 +761,74 @@
       }
     }
 
+
+    .bienvenida-layout {
+      width: min(1120px, 100%);
+      display: grid;
+      grid-template-columns: 1.05fr 0.95fr;
+      align-items: center;
+      gap: clamp(28px, 5vw, 64px);
+      text-align: center;
+    }
+    .hero-contenido { max-width: 100%; }
+    .historia {
+      max-width: 560px;
+      margin: 22px auto 0;
+      color: #eadfce;
+      font-size: 1rem;
+      line-height: 1.7;
+    }
+    .eslogan {
+      display: inline-block;
+      margin: 18px 0 0;
+      padding: 10px 18px;
+      border: 1px solid var(--dorado);
+      border-radius: 30px;
+      color: #f5d69f;
+      font-weight: bold;
+      letter-spacing: .4px;
+    }
+
+.login-card { text-align: left; }
+    .login-card h2 {
+  margin-bottom: 8px;
+  color: var(--negro);
+}
+
+.login-card p {
+  color: var(--negro);
+}
+
+.login-card label {
+  color: var(--negro);
+}
+
+.texto-registro {
+  margin: 20px 0 0;
+  text-align: left;
+  color: var(--negro);
+  font-weight: 500;
+}
+    .texto-registro button {
+      padding: 0;
+      border: 0;
+      color: var(--rojo);
+      background: transparent;
+      font-weight: bold;
+      text-decoration: underline;
+      cursor: pointer;
+    }
+    .auth-volver {
+      display: block;
+      margin: 18px auto 0;
+    }
+    @media (max-width: 760px) {
+      .bienvenida-layout { grid-template-columns: 1fr; }
+      .hero { padding: 34px 18px; }
+      .logo { width: min(230px, 60vw); }
+      .tarjeta-formulario { padding: 24px; }
+    }
+
     .cuenta-layout {
       display: grid;
       grid-template-columns: minmax(260px, 0.85fr) minmax(0, 1.4fr);
@@ -856,17 +924,35 @@
 <body>
   <section id="bienvenida" class="pantalla activa">
     <div class="hero">
-      <div class="hero-contenido">
-        <img
-          class="logo"
-          src="logo-neko.png"
-          alt="Logotipo de Neko Kitchen"
-        >
-        <h1>Neko Kitchen</h1>
-        <p>"La esencia de Asia en un solo lugar."</p>
-        <button class="boton" onclick="mostrarPantalla('registro')">
-          Comenzar
-        </button>
+      <div class="bienvenida-layout">
+        <div class="hero-contenido">
+          <img class="logo" src="logo-neko.png" alt="Logotipo de Neko Kitchen">
+          <h1>Neko Kitchen</h1>
+          <p class="eslogan">"Un mundo de sabores, una experiencia en cada bocado."</p>
+          <p class="historia">
+            Neko Kitchen nació con la idea de acercar la riqueza y diversidad de la
+            gastronomía asiática a más personas. Creamos este espacio para reunir
+            platillos, bebidas y postres tradicionales de distintos países de Asia,
+            celebrando sus ingredientes, costumbres y formas únicas de compartir la mesa.
+          </p>
+        </div>
+
+        <form class="tarjeta-formulario login-card" id="formLogin">
+          <h2>Inicia sesión</h2>
+          <p>Ingresa a tu cuenta para descubrir el menú de Neko Kitchen.</p>
+          <label for="loginUsuario">Nombre de usuario o correo</label>
+          <input id="loginUsuario" type="text" autocomplete="username"
+                 placeholder="Usuario o correo electrónico" required>
+          <label for="loginContrasena">Contraseña</label>
+          <input id="loginContrasena" type="password" autocomplete="current-password"
+                 placeholder="Tu contraseña" required>
+          <div class="form-acciones">
+            <button class="boton" type="submit">Iniciar sesión</button>
+          </div>
+          <p class="texto-registro">¿No tienes cuenta?
+            <button type="button" onclick="mostrarPantalla('registro')">Créala ya</button>
+          </p>
+        </form>
       </div>
     </div>
   </section>
@@ -875,52 +961,37 @@
     <div class="panel-centrado">
       <form class="tarjeta-formulario" id="formRegistro">
         <h2>Crear una cuenta</h2>
-        <p>Regístrate para consultar el menú y realizar pedidos.</p>
+        <p>Completa tus datos para formar parte de Neko Kitchen.</p>
 
-        <label for="nombreCuenta">Nombre de cuenta</label>
-        <input
-          id="nombreCuenta"
-          type="text"
-          maxlength="40"
-          placeholder="¿Cómo te llamas?"
-          required
-        >
+        <label for="nombreCuenta">Nombre completo</label>
+        <input id="nombreCuenta" type="text" maxlength="60"
+               autocomplete="name" placeholder="Nombre y apellidos" required>
 
-        <label for="correo">Correo personal</label>
-        <input
-          id="correo"
-          type="email"
-          placeholder="nombre@correo.com"
-          required
-        >
+        <label for="usuarioCuenta">Nombre de usuario</label>
+        <input id="usuarioCuenta" type="text" maxlength="24" minlength="3"
+               autocomplete="username" placeholder="Elige un nombre de usuario" required>
+
+        <label for="correo">Correo electrónico</label>
+        <input id="correo" type="email" autocomplete="email"
+               placeholder="nombre@correo.com" required>
 
         <label for="contrasena">Contraseña</label>
-        <input
-          id="contrasena"
-          type="password"
-          minlength="6"
-          placeholder="Mínimo 6 caracteres"
-          required
-        >
+        <input id="contrasena" type="password" minlength="8"
+               autocomplete="new-password" placeholder="Mínimo 8 caracteres" required>
 
         <label for="confirmarContrasena">Confirmar contraseña</label>
-        <input
-          id="confirmarContrasena"
-          type="password"
-          minlength="6"
-          required
-        >
+        <input id="confirmarContrasena" type="password" minlength="8"
+               autocomplete="new-password" placeholder="Repite tu contraseña" required>
 
         <div class="form-acciones">
           <button class="boton" type="submit">Crear cuenta</button>
-          <button
-            class="boton secundario"
-            type="button"
-            onclick="mostrarPantalla('bienvenida')"
-          >
-            Volver
-          </button>
+          <button class="boton secundario" type="button"
+                  onclick="mostrarPantalla('bienvenida')">Regresar al inicio</button>
         </div>
+        <p class="texto-registro">
+          <button type="button" onclick="mostrarPantalla('bienvenida')"></button>
+        </p>
+        <p class="nota-cuenta"></p>
       </form>
     </div>
   </section>
@@ -1038,7 +1109,7 @@
           <label for="correoCuenta">Correo electrónico</label>
           <input id="correoCuenta" type="email" readonly>
           <button class="boton" type="button" onclick="guardarPerfil()">Guardar cambios</button>
-          <p class="nota-cuenta">Los datos de este perfil se guardan en este navegador. Esta demostración no utiliza un servidor de cuentas.</p>
+          <p class="nota-cuenta"></p>
         </section>
 
         <section class="panel cuenta-compras">
@@ -1942,7 +2013,7 @@ const imagenesProductos = {
 
     };
 
-    let perfilNeko = JSON.parse(localStorage.getItem("nekoPerfil") || "null");
+    let perfilNeko = null;
     let historialNeko = JSON.parse(localStorage.getItem("nekoCompras") || "[]");
     let categoriaActual = "Japón";
     let productoActual = null;
@@ -1988,12 +2059,40 @@ const imagenesProductos = {
       window.scrollTo({ top: 0, behavior: "smooth" });
     }
 
+    function obtenerCuentasNeko() {
+      return JSON.parse(localStorage.getItem("nekoCuentas") || "[]");
+    }
+
+    document.getElementById("formLogin").addEventListener("submit", evento => {
+      evento.preventDefault();
+      const identificador = document.getElementById("loginUsuario").value.trim().toLowerCase();
+      const clave = document.getElementById("loginContrasena").value;
+      const cuenta = obtenerCuentasNeko().find(item =>
+        (item.usuario || "").toLowerCase() === identificador ||
+        (item.correo || "").toLowerCase() === identificador
+      );
+      if (!cuenta || cuenta.contrasena !== clave) {
+        alert("No encontramos una cuenta con esos datos. Verifica tu usuario y contraseña o crea una cuenta.");
+        return;
+      }
+      perfilNeko = {
+        nombre: cuenta.nombre,
+        usuario: cuenta.usuario,
+        correo: cuenta.correo,
+        foto: cuenta.foto || ""
+      };
+      localStorage.setItem("nekoPerfil", JSON.stringify(perfilNeko));
+      localStorage.setItem("nekoUsuario", cuenta.correo);
+      actualizarAccesosCuenta();
+      document.getElementById("formLogin").reset();
+      mostrarPantalla("principal");
+    });
+
     document.getElementById("formRegistro").addEventListener("submit", evento => {
       evento.preventDefault();
 
       const clave = document.getElementById("contrasena").value;
       const confirmacion = document.getElementById("confirmarContrasena").value;
-
       if (clave !== confirmacion) {
         alert("Las contraseñas no coinciden.");
         return;
@@ -2001,14 +2100,27 @@ const imagenesProductos = {
 
       const correo = document.getElementById("correo").value.trim();
       const nombre = document.getElementById("nombreCuenta").value.trim();
-      perfilNeko = {
-        nombre,
-        correo,
-        foto: perfilNeko?.foto || ""
-      };
+      const usuario = document.getElementById("usuarioCuenta").value.trim();
+      const cuentas = obtenerCuentasNeko();
+
+      if (cuentas.some(item => item.correo.toLowerCase() === correo.toLowerCase())) {
+        alert("Ya existe una cuenta registrada con ese correo.");
+        return;
+      }
+      if (cuentas.some(item => item.usuario.toLowerCase() === usuario.toLowerCase())) {
+        alert("Ese nombre de usuario ya está en uso. Elige otro.");
+        return;
+      }
+
+      const nuevaCuenta = { nombre, usuario, correo, contrasena: clave, foto: "" };
+      cuentas.push(nuevaCuenta);
+      localStorage.setItem("nekoCuentas", JSON.stringify(cuentas));
+      perfilNeko = { nombre, usuario, correo, foto: "" };
       localStorage.setItem("nekoUsuario", correo);
       localStorage.setItem("nekoPerfil", JSON.stringify(perfilNeko));
       actualizarAccesosCuenta();
+      document.getElementById("formRegistro").reset();
+      alert("¡Tu cuenta se creó correctamente!");
       mostrarPantalla("principal");
     });
 
@@ -2028,8 +2140,8 @@ const imagenesProductos = {
 
     function abrirCuenta() {
       if (!perfilNeko) {
-        alert("Primero crea tu cuenta para consultar tu perfil.");
-        mostrarPantalla("registro");
+        alert("Inicia sesión para consultar tu perfil.");
+        mostrarPantalla("bienvenida");
         return;
       }
       document.getElementById("editarNombreCuenta").value = perfilNeko.nombre || "";
